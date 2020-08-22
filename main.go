@@ -28,6 +28,8 @@ type Comment struct {
 	Body   string `json:"body"`
 }
 
+var api = "http://jsonplaceholder.typicode.com";
+
 func main() {
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query: graphql.NewObject(
@@ -122,7 +124,7 @@ func createCommentType() *graphql.Object {
 }
 
 func fetchPostByiD(id int) (*Post, error) {
-	resp, err := http.Get(fmt.Sprintf("http://jsonplaceholder.typicode.com/posts/%d", id))
+	resp, err := http.Get(fmt.Sprintf(api+"/posts/%d", id))
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +145,7 @@ func fetchPostByiD(id int) (*Post, error) {
 }
 
 func fetchCommentsByPostID(id int) ([]Comment, error) {
-	resp, err := http.Get(fmt.Sprintf("http://jsonplaceholder.typicode.com/posts/%d/comments", id))
+	resp, err := http.Get(fmt.Sprintf(api+"/posts/%d/comments", id))
 	if err != nil {
 		return nil, err
 	}
